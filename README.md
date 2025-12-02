@@ -2,8 +2,8 @@
 
 
 ====================================================================
+
 SOLUCIONADOR DE EQUACOES DE SEGUNDO GRAU
-Desenvolvido por: MiniMax Agent
 ====================================================================
 
 FUNCIONALIDADES IMPLEMENTADAS:
