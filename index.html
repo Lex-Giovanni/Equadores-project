@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucionador de Equações de Segundo Grau</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link rel="stylesheet" href="styless.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="title-section">
+                    <h1 class="main-title">ax² + bx + c = 0</h1>
+                    <p class="subtitle">Solucionador de Equações de Segundo Grau</p>
+                </div>
+                <div class="header-controls">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema">
+                        <svg class="theme-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm4.22 3.78a1 1 0 011.415 1.415l-.707.707a1 1 0 11-1.414-1.415l.707-.707zM20 11a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM6.343 6.343a1 1 0 011.414 0l.707.707A1 1 0 017.07 8.464l-.707-.707a1 1 0 010-1.414zM4 11a1 1 0 011-1H6a1 1 0 110 2H5a1 1 0 01-1-1zm14.243 6.071a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.415l-.707-.708a1 1 0 010-1.414zM12 18a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM7.464 16.536a1 1 0 010 1.414l-.707.708a1 1 0 11-1.415-1.415l.708-.707a1 1 0 011.414 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="input-section">
+                <div class="card">
+                    <h2 class="section-title">Insira os Coeficientes</h2>
+                    <form id="equation-form" class="equation-form">
+                        <div class="coefficients-grid">
+                            <div class="input-group">
+                                <label for="coeff-a" class="input-label">Coeficiente a</label>
+                                <input type="number" id="coeff-a" class="coefficient-input" step="any" required placeholder="Digite o valor de a">
+                                <div class="error-message" id="error-a"></div>
+                            </div>
+                            <div class="input-group">
+                                <label for="coeff-b" class="input-label">Coeficiente b</label>
+                                <input type="number" id="coeff-b" class="coefficient-input" step="any" required placeholder="Digite o valor de b">
+                                <div class="error-message" id="error-b"></div>
+                            </div>
+                            <div class="input-group">
+                                <label for="coeff-c" class="input-label">Coeficiente c</label>
+                                <input type="number" id="coeff-c" class="coefficient-input" step="any" required placeholder="Digite o valor de c">
+                                <div class="error-message" id="error-c"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="equation-display">
+                            <div class="equation-text">
+                                <span id="display-a">a</span>x² + <span id="display-b">b</span>x + <span id="display-c">c</span> = 0
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="calculate-btn" id="calculate-btn">
+                            <span>Calcular Raízes</span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="results-section" id="results-section" style="display: none;">
+                <div class="results-grid">
+                    <div class="card results-card">
+                        <h2 class="section-title">Resultados</h2>
+                        <div class="result-status" id="result-status">
+                        </div>
+                        
+                        <div class="roots-container" id="roots-container">
+                        </div>
+                        
+                        <div class="calculation-details" id="calculation-details">
+                            <button class="toggle-details-btn" id="toggle-details">
+                                Ver cálculo passo a passo
+                                <svg class="expand-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M6 9l6 6 6-6"/>
+                                </svg>
+                            </button>
+                            <div class="calculation-steps" id="calculation-steps">
+                            </div>
+                        </div>
+                        
+                        <div class="educational-info" id="educational-info">
+                        </div>
+                    </div>
+
+                    <div class="card graph-card">
+                        <h2 class="section-title">Gráfico da Parábola</h2>
+                        <div class="graph-container">
+                            <canvas id="parabola-chart"></canvas>
+                        </div>
+                        <div class="graph-legend" id="graph-legend">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="history-section">
+                <div class="card">
+                    <h2 class="section-title">Histórico de Equações</h2>
+                    <div class="history-controls">
+                        <button id="clear-history" class="clear-history-btn">Limpar Histórico</button>
+                        <div class="history-count" id="history-count">0 equações resolvidas</div>
+                    </div>
+                    <div class="history-list" id="history-list">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="notifications" class="notifications-container"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Lex Giovanni - Solucionador de Equações de Segundo Grau</p>
+                <p>Ferramenta educativa para aprendizado de matemática</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
